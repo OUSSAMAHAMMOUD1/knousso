@@ -276,23 +276,6 @@ export default function ProductDetail() {
                 </p>
                 <p className="text-gold-400 font-semibold text-lg mb-6">{product.price?.toLocaleString()} MAD</p>
                 <p className="text-gray-400 text-sm mb-6">Nous vous contacterons bientôt pour confirmer la livraison.</p>
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                    `🛍️ *Nouvelle commande KnOusso*\n\n` +
-                    `👟 *Produit:* ${product.name} — Pointure ${selectedSize}\n` +
-                    `💰 *Total:* ${product.price} MAD\n\n` +
-                    `👤 *Client:* ${orderForm.name}\n` +
-                    `📞 *Tél:* ${orderForm.phone}\n` +
-                    `🏙️ *Ville:* ${orderForm.city}\n` +
-                    `📍 *Adresse:* ${orderForm.address}`
-                  )}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-3 text-sm transition-colors"
-                >
-                  <FaWhatsapp size={18} />
-                  Confirmer via WhatsApp
-                </a>
                 <button
                   onClick={() => setShowOrderForm(false)}
                   className="mt-3 w-full py-3 btn-gold text-sm"
