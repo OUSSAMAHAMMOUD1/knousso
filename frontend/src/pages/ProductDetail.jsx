@@ -355,7 +355,7 @@ export default function ProductDetail() {
                     {orderLoading ? (
                       <span className="w-4 h-4 border-2 border-dark-900 border-t-transparent rounded-full animate-spin" />
                     ) : (
-                      <><FiCreditCard size={16} /> Confirmer — Paiement à la livraison</>
+                      <><FaWhatsapp size={16} /> Confirmer via WhatsApp</>
                     )}
                   </button>
                 </form>
