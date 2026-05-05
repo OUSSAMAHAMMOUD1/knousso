@@ -350,7 +350,7 @@ export default function ProductDetail() {
                   <button
                     type="submit"
                     disabled={orderLoading}
-                    className="w-full py-4 btn-gold text-sm flex items-center justify-center gap-2 disabled:opacity-60"
+                    className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-60 transition-colors"
                   >
                     {orderLoading ? (
                       <span className="w-4 h-4 border-2 border-dark-900 border-t-transparent rounded-full animate-spin" />
