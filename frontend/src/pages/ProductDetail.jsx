@@ -74,6 +74,16 @@ export default function ProductDetail() {
         total: product.price,
         shippingAddress: orderForm,
       });
+      const msg = encodeURIComponent(
+        `🛍️ *Nouvelle commande KnOusso*\n\n` +
+        `👟 *Produit:* ${product.name} — Pointure ${selectedSize}\n` +
+        `💰 *Total:* ${product.price} MAD\n\n` +
+        `👤 *Client:* ${orderForm.name}\n` +
+        `📞 *Tél:* ${orderForm.phone}\n` +
+        `🏙️ *Ville:* ${orderForm.city}\n` +
+        `📍 *Adresse:* ${orderForm.address}`
+      );
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
       setOrderDone(true);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Erreur lors de la commande', {
