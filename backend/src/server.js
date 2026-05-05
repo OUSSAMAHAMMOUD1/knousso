@@ -11,13 +11,17 @@ connectDB();
 
 // Security & Middleware
 app.use(helmet());
-const allowedOrigins = process.env.FRONTEND_URL
-  ? [process.env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173']
-  : true;
 app.use(cors({
-  origin: process.env.NODE_ENV === 'development'
-    ? (origin, cb) => cb(null, true)
-    : allowedOrigins,
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true);
+    if (
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.onrender.com') ||
+      origin === process.env.FRONTEND_URL ||
+      /^http:\/\/localhost:\d+$/.test(origin)
+    ) return cb(null, true);
+    cb(new Error('Not allowed by CORS'));
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
