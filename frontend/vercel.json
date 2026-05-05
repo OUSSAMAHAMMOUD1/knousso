@@ -1,0 +1,6 @@
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "env": {
+    "VITE_API_URL": "@knousso_api_url"
+  }
+}
