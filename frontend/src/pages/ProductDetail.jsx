@@ -68,6 +68,7 @@ export default function ProductDetail() {
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
     setOrderLoading(true);
+    const waWindow = window.open('', '_blank');
     try {
       await ordersAPI.create({
         items: [{ product: product._id, size: selectedSize, quantity: 1 }],
@@ -83,9 +84,10 @@ export default function ProductDetail() {
         `🏙️ *Ville:* ${orderForm.city}\n` +
         `📍 *Adresse:* ${orderForm.address}`
       );
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+      waWindow.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
       setOrderDone(true);
     } catch (err) {
+      waWindow.close();
       toast.error(err.response?.data?.message || 'Erreur lors de la commande', {
         style: { background: '#1a1a1a', color: '#fff', border: '1px solid #ef4444' },
       });
