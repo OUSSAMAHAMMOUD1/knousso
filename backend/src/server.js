@@ -14,10 +14,14 @@ app.use(helmet());
 app.use(cors({
   origin: (origin, cb) => {
     if (!origin) return cb(null, true);
+    const frontendUrl = process.env.FRONTEND_URL || '';
+    const frontendHost = frontendUrl.replace(/^https?:\/\//, '');
     if (
       origin.endsWith('.vercel.app') ||
       origin.endsWith('.onrender.com') ||
-      origin === process.env.FRONTEND_URL ||
+      origin === frontendUrl ||
+      origin === `http://${frontendHost}` ||
+      origin === `https://${frontendHost}` ||
       /^http:\/\/localhost:\d+$/.test(origin)
     ) return cb(null, true);
     cb(new Error('Not allowed by CORS'));
