@@ -6,7 +6,7 @@ import ProductCard from '../components/ProductCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { FiArrowRight, FiCheckCircle, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const DEFAULT_HERO = ['/images/derby.jpg', '/images/loafer.jpg', '/images/brogue.jpg'];
+const DEFAULT_HERO = [];
 
 export default function Home() {
   const { t } = useTranslation();

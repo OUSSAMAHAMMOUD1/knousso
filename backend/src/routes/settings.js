@@ -4,7 +4,7 @@ const Settings = require('../models/Settings');
 
 const router = express.Router();
 
-const DEFAULT_IMAGES = ['/images/derby.jpg', '/images/loafer.jpg', '/images/brogue.jpg'];
+const DEFAULT_IMAGES = [];
 
 // GET /api/settings/slideshow — public
 router.get('/slideshow', async (req, res) => {
