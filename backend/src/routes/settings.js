@@ -10,7 +10,8 @@ const DEFAULT_IMAGES = [];
 router.get('/slideshow', async (req, res) => {
   try {
     const doc = await Settings.findOne({ key: 'slideshow' });
-    res.json({ images: doc?.value || DEFAULT_IMAGES });
+    const images = (doc?.value || DEFAULT_IMAGES).filter(img => !img.startsWith('/images/'));
+    res.json({ images });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
