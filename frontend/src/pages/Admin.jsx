@@ -25,7 +25,7 @@ function compressImage(file, maxWidth = 800, quality = 0.82) {
 }
 
 const EMPTY_PRODUCT = {
-  name: '', price: '', description: '', category: '', sizes: [40, 41, 42, 43], images: [''], isNewArrival: false,
+  name: '', price: '', description: '', category: '', sizes: [40, 41, 42, 43], images: [''], isNewArrival: false, featured: false,
 };
 
 export default function Admin() {
@@ -399,6 +399,17 @@ export default function Admin() {
                   />
                 </div>
               ))}
+
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  id="featured"
+                  checked={!!form.featured}
+                  onChange={e => setForm(p => ({ ...p, featured: e.target.checked }))}
+                  className="w-4 h-4 accent-yellow-500"
+                />
+                <label htmlFor="featured" className="text-xs uppercase tracking-widest text-gray-400">Featured (page d'accueil)</label>
+              </div>
 
               <div>
                 <label className="text-xs uppercase tracking-widest text-gray-400 mb-1.5 block">Description</label>
