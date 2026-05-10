@@ -122,14 +122,7 @@ export default function Home() {
                 <ProductCard key={product._id} product={product} />
               ))}
             </div>
-          ) : (
-            /* Placeholder cards when no DB products yet */
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-              {PLACEHOLDER_PRODUCTS.map(p => (
-                <ProductCard key={p._id} product={p} />
-              ))}
-            </div>
-          )}
+          ) : null}
 
           <div className="text-center mt-12">
             <Link to="/catalogue" className="btn-outline-gold inline-flex items-center gap-2">
