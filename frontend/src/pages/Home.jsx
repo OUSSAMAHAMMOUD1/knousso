@@ -1,35 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { productsAPI, settingsAPI } from '../utils/api';
+import { productsAPI } from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { FiArrowRight, FiCheckCircle, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 
-const DEFAULT_HERO = [];
+const HERO_IMAGE = '/images/knoussoLoafers.jpeg';
 
 export default function Home() {
   const { t } = useTranslation();
   const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [heroIdx, setHeroIdx] = useState(0);
-  const [heroImages, setHeroImages] = useState(DEFAULT_HERO);
 
   useEffect(() => {
     productsAPI.getAll({ limit: 4, featured: true })
       .then(({ data }) => setFeatured(data.products || []))
       .catch(() => setFeatured([]))
       .finally(() => setLoading(false));
-    settingsAPI.getSlideshow()
-      .then(({ data }) => { if (data.images?.length) setHeroImages(data.images); })
-      .catch(() => {});
   }, []);
-
-  // Hero slideshow
-  useEffect(() => {
-    const timer = setInterval(() => setHeroIdx(i => (i + 1) % heroImages.length), 3000);
-    return () => clearInterval(timer);
-  }, [heroImages.length]);
 
   const whyItems = [
     { key: 'quality', icon: '✦' },
@@ -41,16 +30,10 @@ export default function Home() {
     <div className="min-h-screen">
       {/* ── HERO ── */}
       <section className="relative h-screen flex items-center overflow-hidden">
-        {heroImages.map((img, i) => (
-          <div
-            key={img}
-            className="absolute inset-0 transition-opacity duration-1000"
-            style={{ opacity: i === heroIdx ? 1 : 0 }}
-          >
-            <img src={img} alt="hero" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-dark-900/90 via-dark-900/60 to-transparent" />
-          </div>
-        ))}
+        <div className="absolute inset-0">
+          <img src={HERO_IMAGE} alt="hero" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark-900/90 via-dark-900/60 to-transparent" />
+        </div>
 
         <div className="relative z-10 section-padding max-w-7xl mx-auto w-full">
           <div className="max-w-xl animate-fade-in">
@@ -75,32 +58,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Arrows */}
-        <button
-          onClick={() => setHeroIdx(i => (i - 1 + heroImages.length) % heroImages.length)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center border border-white/20 bg-black/30 text-white hover:bg-gold-500 hover:border-gold-500 hover:text-dark-900 transition-all duration-200"
-        >
-          <FiChevronLeft size={22} />
-        </button>
-        <button
-          onClick={() => setHeroIdx(i => (i + 1) % heroImages.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center border border-white/20 bg-black/30 text-white hover:bg-gold-500 hover:border-gold-500 hover:text-dark-900 transition-all duration-200"
-        >
-          <FiChevronRight size={22} />
-        </button>
-
-        {/* Slide indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-          {heroImages.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setHeroIdx(i)}
-              className={`w-6 h-0.5 transition-all duration-300 ${
-                i === heroIdx ? 'bg-gold-500 w-10' : 'bg-gray-600'
-              }`}
-            />
-          ))}
-        </div>
       </section>
 
       {/* ── FEATURED ── */}
